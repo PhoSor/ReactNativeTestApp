@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, ActivityIndicator, ListView, Text, View } from 'react-native';
+import { AppRegistry, StyleSheet, ActivityIndicator, ListView, Text, View } from 'react-native';
 
 export default class Movies extends Component {
   constructor(props) {
@@ -39,10 +39,29 @@ export default class Movies extends Component {
       <View style={{flex: 1, paddingTop: 20}}>
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={(rowData) => <Text>{rowData.title}</Text>}
+          renderRow={(rowData) => <View style={{padding: 10}}><Text style={styles.title}>{rowData.title}</Text><Text style={styles.body}>{rowData.body}</Text></View>}
+          renderSeparator={(sectionID, rowID) =>
+              <View key={`${sectionID}-${rowID}`} style={styles.separator} />
+      }
         />
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  title: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+  body: {
+    fontSize: 12,
+  },
+  separator: {
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: 'grey',
+  }
+});
+
 AppRegistry.registerComponent('AwesomeProject', () => Movies);
